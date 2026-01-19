@@ -14,8 +14,8 @@ with sync_playwright() as playwright:
     email_input.fill("user.name@gmail.com")
 
     # Заполняем поле username
-    email_input = page.get_by_test_id('registration-form-username-input').locator('input')
-    email_input.fill("username")
+    username_input = page.get_by_test_id('registration-form-username-input').locator('input')
+    username_input.fill("username")
 
     # Заполняем поле пароль
     password_input = page.get_by_test_id('registration-form-password-input').locator('input')
