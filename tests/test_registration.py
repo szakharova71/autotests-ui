@@ -1,6 +1,8 @@
 from playwright.sync_api import sync_playwright, expect
+import pytest
 
-
+@pytest.mark.regression
+@pytest.mark.registration
 def test_successful_registration():  # Создаем тестовую функцию
     with sync_playwright() as playwright:
         # Запускаем Chromium браузер в обычном режиме (не headless)
