@@ -1,3 +1,4 @@
 pytest_plugins = (
-    "fixtures.browsers"
+    "fixtures.pages", # Подключаем фикстуры страниц
+    "fixtures.browsers" # Подключали ранее в предыдущих уроках
 )
