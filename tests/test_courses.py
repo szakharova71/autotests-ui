@@ -1,9 +1,7 @@
-from playwright.sync_api import expect, Page
 import pytest
 
 from pages.courses_list_page import CoursesListPage
 from pages.create_course_page import CreateCoursePage
-
 
 @pytest.mark.courses
 @pytest.mark.regression
@@ -25,22 +23,20 @@ def test_create_course(create_course_page: CreateCoursePage, courses_list_page: 
     # Открыть страницу https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create.
     create_course_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
     # Проверить наличие заголовка "Create course"
-    create_course_page.check_visible_create_course_title()
     # Проверить, что кнопка создания курса недоступна для нажатия
-    create_course_page.check_disabled_create_course_button()
+    create_course_page.create_course_toolbar_view.check_visible(is_create_course_disabled=True)
     # Убедиться, что отображается пустой блок для предпросмотра изображения
     # Проверить, что блок загрузки изображения отображается в состоянии, когда картинка не выбрана
     create_course_page.image_upload_widget.check_visible(is_image_uploaded=False)
     # Проверить, что форма создания курса отображается и содержит значения по умолчанию
-    create_course_page.check_visible_create_course_form(title="",
+    create_course_page.create_course_form.check_visible(title="",
                                                         estimated_time="",
                                                         description="",
                                                         max_score="0",
                                                         min_score="0")
     # Проверить наличие заголовка "Exercises"
-    create_course_page.check_visible_exercises_title()
     # Проверить наличие кнопки создания задания
-    create_course_page.check_visible_create_exercise_button()
+    create_course_page.create_course_exercises_toolbar_view.check_visible()
     # Убедиться, что отображается блок с пустыми заданиями
     create_course_page.check_visible_exercises_empty_view()
 
@@ -49,13 +45,16 @@ def test_create_course(create_course_page: CreateCoursePage, courses_list_page: 
     # Убедиться, что блок загрузки изображения отображает состояние, когда картинка успешно загружена
     create_course_page.image_upload_widget.check_visible(is_image_uploaded=True)
     # Заполнить форму создания курса
-    create_course_page.fill_create_course_form(title="Playwright",
+    create_course_page.create_course_form.fill(title="Playwright",
                                                estimated_time="2 weeks",
                                                description="Playwright",
                                                max_score="100",
                                                min_score="10")
+    # Проверить наличие заголовка "Create course"
+    # Проверить, что кнопка создания курса доступна для нажатия после заполнения
+    create_course_page.create_course_toolbar_view.check_visible(is_create_course_disabled=False)
     # Нажать на кнопку создания курса
-    create_course_page.click_create_course_button()
+    create_course_page.create_course_toolbar_view.click_create_course_button()
 
     courses_list_page.toolbar_view.check_visible()
     # Проверить корректность отображаемых данных на карточке курса
