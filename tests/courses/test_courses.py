@@ -72,7 +72,6 @@ class TestCourses:
                                                    max_score="100",
                                                    min_score="10")
         create_course_page.image_upload_widget.upload_preview_image('./testdata/files/image.png')
-        create_course_page.create_course_toolbar_view.check_visible(is_create_course_disabled=False)
         create_course_page.create_course_toolbar_view.click_create_course_button()
 
         create_course_page.page.wait_for_timeout(2000)
@@ -90,8 +89,7 @@ class TestCourses:
                                                    description="Python",
                                                    max_score="200",
                                                    min_score="20")
-        create_course_page.update_course_toolbar_view.check_visible(is_create_course_disabled=False)
-        create_course_page.update_course_toolbar_view.click_create_course_button()
+        create_course_page.create_course_toolbar_view.click_create_course_button()
 
         courses_list_page.course_view.check_visible(index=0,
                                                     title="Python",
