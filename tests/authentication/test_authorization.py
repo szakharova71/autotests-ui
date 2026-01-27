@@ -18,6 +18,9 @@ from tools.allure.stories import AllureStory # Импортируем enum Allur
 @allure.epic(AllureEpic.LMS) # Добавили epic
 @allure.feature(AllureFeature.AUTHENTICATION) # Добавили feature
 @allure.story(AllureStory.AUTHORIZATION) # Добавили story
+@allure.parent_suite(AllureEpic.LMS)
+@allure.suite(AllureFeature.AUTHENTICATION)
+@allure.sub_suite(AllureStory.AUTHORIZATION)
 class TestAuthorization:
     @pytest.mark.parametrize("email, password",
                              [("user.name@gmail.com", "password"), ("user.name@gmail.com", "  "), ("  ", "password")])
