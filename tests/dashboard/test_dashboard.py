@@ -1,21 +1,22 @@
 import pytest
 import allure
-from allure_commons.types import Severity # Импортируем enum Severity из Allure
+from allure_commons.types import Severity  # Импортируем enum Severity из Allure
 
+from config import settings
 from pages.dashboard.dashboard_page import DashboardPage
 from tools.allure.tags import AllureTag
-from tools.allure.epics import AllureEpic # Импортируем enum AllureEpic
-from tools.allure.features import AllureFeature # Импортируем enum AllureFeature
-from tools.allure.stories import AllureStory # Импортируем enum AllureStory
-
+from tools.allure.epics import AllureEpic  # Импортируем enum AllureEpic
+from tools.allure.features import AllureFeature  # Импортируем enum AllureFeature
+from tools.allure.stories import AllureStory  # Импортируем enum AllureStory
+from tools.routes import AppRoute
 
 
 @pytest.mark.dashboard
 @pytest.mark.regression
 @allure.tag(AllureTag.REGRESSION, AllureTag.DASHBOARD)
-@allure.epic(AllureEpic.LMS) # Добавили epic
-@allure.feature(AllureFeature.DASHBOARD) # Добавили feature
-@allure.story(AllureStory.DASHBOARD) # Добавили story
+@allure.epic(AllureEpic.LMS)  # Добавили epic
+@allure.feature(AllureFeature.DASHBOARD)  # Добавили feature
+@allure.story(AllureStory.DASHBOARD)  # Добавили story
 @allure.parent_suite(AllureEpic.LMS)
 @allure.suite(AllureFeature.DASHBOARD)
 @allure.sub_suite(AllureStory.DASHBOARD)
@@ -23,11 +24,11 @@ class TestDashboard:
     @allure.title("Check displaying of dashboard page")
     @allure.severity(Severity.NORMAL)  # Добавили severity
     def test_dashboard_displaying(self, dashboard_page_with_state: DashboardPage):
-        dashboard_page_with_state.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/dashboard")
+        dashboard_page_with_state.visit(AppRoute.DASHBOARD)
         # Добавили проверку Sidebar компонента на странице Dashboard
         dashboard_page_with_state.sidebar.check_visible()
         # Добавили проверку Navbar компонента на странице Dashboard
-        dashboard_page_with_state.navbar.check_visible("username")
+        dashboard_page_with_state.navbar.check_visible(settings.test_user.username)
 
         dashboard_page_with_state.dashboard_toolbar_view.check_visible()
 
