@@ -20,7 +20,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4  # Используем GitHub Action для клонирования репозитория
 
-      # 2. Шаг для установки Python на виртуальной машине test
+      # 2. Шаг для установки Python на виртуальной машине
       - name: Set up Python
         uses: actions/setup-python@v4  # Используем GitHub Action для установки Python
         with:
