@@ -18,8 +18,14 @@ class Textarea(BaseElement):
         # Добавили аргумент nth и передаем его в get_locator
         return super().get_locator(nth, **kwargs).locator('textarea').first
 
+    # Переопределяем метод формирования XPath-селектора:
+    #  - сначала получаем общий селектор блока
+    #  - затем уточняем путь до самого <textarea>, добавляя '//textarea'
+    #  - затем берем первый элемент
+    # Это нужно, чтобы трекер точно знал, с каким элементом шло взаимодействие.
     def get_raw_locator(self, nth: int = 0, ** kwargs) -> str:
         return f'({super().get_raw_locator(**kwargs)}//textarea)[1]'
+
 
 
     def fill(self, value: str, nth: int = 0, **kwargs):
